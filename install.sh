@@ -2,7 +2,6 @@
 
 cd $HOME
 
-install() {
 sudo apt-get autoclean
 sudo apt-get autoremove
 wget security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb
@@ -57,7 +56,6 @@ sudo apt-get dist-upgrade
 do-release-upgrade
 sudo apt-get autoclean
 sudo apt-get autoremove
-}
 
 function print_logo() {
 echo -e "\033[38;5;600m"
@@ -91,10 +89,6 @@ logo[5]="     ###      ########     ###       ### ########## ###       ### #####
     done
     printf "\n"
 }
-
-if [ "$1" = "install" ]; then
-  install
- fi
  
  print_logo
    echo -e "\033[38;5;208m"
