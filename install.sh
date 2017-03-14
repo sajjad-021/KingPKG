@@ -2,7 +2,7 @@
 
 cd $HOME
 
-pkg() {
+install() {
 sudo apt-get autoclean
 sudo apt-get autoremove
 rm -rf /usr/lib/x86_64-linux-gnu/libstdc++.so.6
@@ -93,8 +93,8 @@ logo[5]="     ###      ########     ###       ### ########## ###       ### #####
     printf "\n"
 }
 
-if [ "$1" = "pkg" ]; then
-  pkg
+if [ "$1" = "install" ]; then
+  install
  fi
  
  print_logo
