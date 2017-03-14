@@ -5,7 +5,6 @@ cd $HOME
 install() {
 sudo apt-get autoclean
 sudo apt-get autoremove
-rm -rf /usr/lib/x86_64-linux-gnu/libstdc++.so.6
 wget security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb
 dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb 
 sudo apt-add-repository --remove ppa:ubuntu-toolchain-r/test
