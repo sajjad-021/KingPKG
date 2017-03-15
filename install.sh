@@ -1,7 +1,32 @@
-#!/usr/bin/env bash
+    declare -A logo
+    seconds="0.009"
+logo[-1]=":::::::::::  ::::::::      :::     :::  ::::::::::  :::     :::  :::::::::  :::::::::: :::::::::"
+logo[0]="     :+:     :+:    :+:    +:+:+   +:+:+ :+:        +:+:+   +:+:+ :+:    :+: :+:        :+:    :+:"
+logo[1]="     +:+     +:+           +:+ +:+:+ +:+ +:+        +:+ +:+:+ +:+ +:+    +:+ +:+        +:+    +:+"
+logo[2]="     +#+     :#:           +#+  +:+  +#+ +#++:++#   +#+  +:+  +#+ +#++:++#+  +#++:++#   +#++:++#:"
+logo[3]="     +#+     +#+  +#+#+    +#+   +   +#+ +#+        +#+   +   +#+ +#+    +#+ +#+        +#+    +#+"
+logo[4]="     #+#     #+#    #+#    #+#       #+# #+#        #+#       #+# #+#    #+# #+#        #+#    #+#"
+logo[5]="     ###      ########     ###       ### ########## ###       ### #########  ########## ###    ###"
+    printf "\033[38;5;600m\t"
+    for i in ${!logo[@]}; do
+        for x in `seq 0 ${#logo[$i]}`; do
+            printf "${logo[$i]:$x:1}"
+            sleep $seconds
+        done
+        printf "\n\t"
+    done
+printf "\n"
 
-cd $HOME
-
+rm -rf ~/.telegram-cli/tabchi-*/data/photo
+rm -rf ~/.telegram-cli/tabchi-*/data/animation
+rm -rf ~/.telegram-cli/tabchi-*/data/audio
+rm -rf ~/.telegram-cli/tabchi-*/data/document
+rm -rf ~/.telegram-cli/tabchi-*/data/sticker
+rm -rf ~/.telegram-cli/tabchi-*/data/temp
+rm -rf ~/.telegram-cli/tabchi-*/data/video
+rm -rf ~/.telegram-cli/tabchi-*/data/voice
+rm -rf ~/.telegram-cli/tabchi-*/data/profile_photo
+rm -rf ~/.telegram-cli/tabchi-*/data/thumb
 sudo apt-get autoclean
 sudo apt-get autoremove
 wget security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb
@@ -57,40 +82,6 @@ do-release-upgrade
 sudo apt-get autoclean
 sudo apt-get autoremove
 
-function print_logo() {
-echo -e "\033[38;5;600m"
-echo -e " :::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: :::::::::"
-echo -e "     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
-echo -e "     +:+     +:+           +:+ +:+:+ +:+ +:+        +:+ +:+:+ +:+ +:+    +:+ +:+        +:+    +:+"
-echo -e "     +#+     :#:           +#+  +:+  +#+ +#++:++#   +#+  +:+  +#+ +#++:++#+  +#++:++#   +#++:++#:"
-echo -e "     +#+     +#+   +#+#    +#+       +#+ +#+        +#+       +#+ +#+    +#+ +#+        +#+    +#+"
-echo -e "     #+#     #+#    #+#    #+#       #+# #+#        #+#       #+# #+#    #+# #+#        #+#    #+#"
-echo -e "     ###      ########     ###       ### ########## ###       ### #########  ########## ###    ###"
-echo -e "\n\e[36m"
-}
-
-function logo_play() {
-    declare -A logo
-    seconds="0.004"
-logo[-1]=":::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: :::::::::"
-logo[0]="     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
-logo[1]="     +:+     +:+           +:+ +:+:+ +:+ +:+        +:+ +:+:+ +:+ +:+    +:+ +:+        +:+    +:+"
-logo[2]="     +#+     :#:           +#+  +:+  +#+ +#++:++#   +#+  +:+  +#+ +#++:++#+  +#++:++#   +#++:++#:"
-logo[3]="     +#+     +#+   +#+#    +#+       +#+ +#+        +#+       +#+ +#+    +#+ +#+        +#+    +#+"
-logo[4]="     #+#     #+#    #+#    #+#       #+# #+#        #+#       #+# #+#    #+# #+#        #+#    #+#"
-logo[5]="     ###      ########     ###       ### ########## ###       ### #########  ########## ###    ###"
-    printf "\033[38;5;600m\t"
-    for i in ${!logo[@]}; do
-        for x in `seq 0 ${#logo[$i]}`; do
-            printf "${logo[$i]:$x:1}"
-            sleep $seconds
-        done
-        printf "\n\t"
-    done
-    printf "\n"
-}
- 
- print_logo
    echo -e "\033[38;5;208m"
    echo -e " :::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: :::::::::"
    echo -e "     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
@@ -100,7 +91,4 @@ logo[5]="     ###      ########     ###       ### ########## ###       ### #####
    echo -e "     #+#     #+#    #+#    #+#       #+# #+#        #+#       #+# #+#    #+# #+#        #+#    #+#"
    echo -e "     ###      ########     ###       ### ########## ###       ### #########  ########## ###    ###"   
    echo -e "\033[0;00m"
-   echo -e "\e[36m"
-   logo_playl
-  fi
-  
+echo -e "\e[36m"
