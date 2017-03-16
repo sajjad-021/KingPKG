@@ -8,13 +8,13 @@
 [![https://github.com/sajjad-021/Tabchi](https://img.shields.io/badge/%F0%9F%92%AC_GitHub-KingPKG-green.svg)](https://github.com/sajjad-021/KingPKG)
 [![http://tgmember.cf](https://img.shields.io/badge/webpage-tgMember-ff69b4.svg)](http://tgmember.cf)
 
-[![https://t.me/MemberPlus_TM](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel_TM-blue.svg)](https://t.me/tgMember)
+[![https://t.me/MemberPlus_TM](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel_TM-blue.svg)](https://t.me/tgMember)    
 
-![tg1](https://memberplus.gq/tg1.jpg)
+<p align="center"> ![tg1](https://memberplus.gq/tg1.jpg)
 
 ***
 
-##Install
+## Install
 To install everything in one command:
 ```sh
 cd $HOME && git clone https://github.com/sajjad-021/KingPKG.git && cd KingPKG && chmod +x install.sh && ./install.sh
@@ -22,7 +22,7 @@ cd $HOME && git clone https://github.com/sajjad-021/KingPKG.git && cd KingPKG &&
 
 ***
 
-##[Coded by (sajjad_021)](https://t.me/sajjad_021)
-##[channel (TgMember)](https://t.me/tgMember)
+## [Coded by (sajjad_021)](https://t.me/sajjad_021)
+## [channel (TgMember)](https://t.me/tgMember)
 
 Enjoy of your ubuntu server!
