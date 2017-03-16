@@ -9,8 +9,8 @@
 [![http://tgmember.cf](https://img.shields.io/badge/webpage-tgMember-ff69b4.svg)](http://tgmember.cf)
 
 [![https://t.me/MemberPlus_TM](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel_TM-blue.svg)](https://t.me/tgMember)    
-
-<p align="center"> ![tg1](https://memberplus.gq/tg1.jpg)
+ 
+<p><img style="vertical-align: center;" src="https://memberplus.gq/tg1.jpg"></p>
 
 ***
 
