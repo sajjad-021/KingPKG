@@ -28,8 +28,6 @@ rm -rf ~/.telegram-cli/tabchi-*/data/video
 rm -rf ~/.telegram-cli/tabchi-*/data/voice
 rm -rf ~/.telegram-cli/tabchi-*/data/profile_photo
 rm -rf ~/.telegram-cli/tabchi-*/data/thumb
-wget security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb
-dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.4_amd64.deb
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
