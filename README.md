@@ -10,8 +10,7 @@
 
 [![https://t.me/MemberPlus_TM](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel_TM-blue.svg)](https://t.me/tgMember)    
  
-<p><img style="vertical-align: center;" src="https://memberplus.gq/tg1.jpg"></p>
-
+<p align="center"> <img class="td" style="vertical-align: middle;" onmouseover="this.src='https://memberplus.gq/3.jpg';" src="https://memberplus.gq/tg1.jpg" alt="" width="500" height="260" /></p>
 ***
 
 ## Install
