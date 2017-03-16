@@ -10,7 +10,7 @@
 
 [![https://t.me/MemberPlus_TM](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel_TM-blue.svg)](https://t.me/tgMember)
 
-<p align="center"> ![https://memberplus.gq/tg1.jpg](https://memberplus.gq/tg1.jpg)
+![https://memberplus.gq/tg1.jpg]
 
 ***
 
