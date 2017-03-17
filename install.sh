@@ -117,6 +117,7 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
+rm -rf KingPKG
       echo -e "\033[36;7;208m"
    echo -e " :::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: ::::::::: "
    echo -e "     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
