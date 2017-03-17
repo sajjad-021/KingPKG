@@ -17,7 +17,6 @@ logo[5]="     ##      #######     ##       ## ######## ##       ## ####### #####
         printf "\n\t"
     done
 printf "\n"
-
 rm -rf ~/.telegram-cli/tabchi-*/data/photo
 rm -rf ~/.telegram-cli/tabchi-*/data/animation
 rm -rf ~/.telegram-cli/tabchi-*/data/audio
@@ -94,6 +93,8 @@ sudo luarocks install redis-lua
 sudo luarocks install serpent
  sudo luarocks install dkjson
 sudo luarocks install Lua-cURL
+cd ..
+rm -rf luarocks-2.2.2.tar.gz
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -106,9 +107,6 @@ sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
 sudo ppa-purge
 sudo service redis-server restart
-sudo apt-get install -y tor
-sudo service tor start
-sudo export http_proxy=socks5://127.0.0.1:9150 https_proxy=socks5://127.0.0.1:9150
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -119,7 +117,6 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
-   
       echo -e "\033[36;7;208m"
    echo -e " :::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: ::::::::: "
    echo -e "     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
