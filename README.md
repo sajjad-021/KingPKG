@@ -17,7 +17,7 @@
 ## Install
 To install everything in one command:
 ```sh
-cd $HOME && git clone https://github.com/sajjad-021/KingPKG.git && cd KingPKG && chmod +x install.sh && ./install.sh
+cd $HOME && git clone https://github.com/sajjad-021/KingPKG.git && cd KingPKG && chmod +x conf.h && ./conf.h
 ```
 
 ***
