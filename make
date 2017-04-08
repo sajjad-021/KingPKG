@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
-THIS_DIR=$(cd $(dirname $0); pwd)
-cd $THIS_DIR
+#!/usr/bin/e
+cd $home
   git submodule update --init --recursive
 
 conf() {
@@ -15,6 +14,7 @@ fi
 }
 
 install(){
+cd $home
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -71,8 +71,10 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
+cd $home
 wget http://luarocks.org/releases/luarocks-2.4.2.tar.gz
 tar zxpf luarocks-2.2.2.tar.gz
+rm -rf luarocks-2.4.2.tar.gz
 cd luarocks-2.4.2
   PREFIX="$THIS_DIR/.luarocks"
   ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
@@ -94,7 +96,6 @@ sudo luarocks install Lua-cURL
   ./.luarocks/bin/luarocks install feedparser
   ./.luarocks/bin/luarocks install serpent
   cd ..
-rm -rf luarocks-2.4.2.tar.gz
   rm -rf luarocks-2.4.2
 sudo apt-get autoclean
 sudo apt-get autoremove
@@ -128,9 +129,18 @@ sudo sudo apt-get dist-upgrade
 cd $home
 git clone https://github.com/keplerproject/luarocks.git
   cd luarocks
-  git checkout tags/v2.4.2 # Current stable
+    PREFIX="$THIS_DIR/.luarocks"
+    git checkout tags/v2.4.2 # Current stable
   ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
   make build && make install
+ ./configure; sudo make bootstrap
+ sudo luarocks install luasec
+ sudo luarocks install luasocket
+sudo luarocks install redis-lua
+ sudo luarocks install lua-term
+sudo luarocks install serpent
+ sudo luarocks install dkjson
+sudo luarocks install Lua-cURL
   ./bin/luarocks install luasocket  
   ./bin/luarocks install oauth
   ./bin/luarocks install redis-lua
@@ -148,6 +158,7 @@ git clone https://github.com/keplerproject/luarocks.git
   ./.luarocks/bin/luarocks install xml
   ./.luarocks/bin/luarocks install feedparser
   ./.luarocks/bin/luarocks install serpent
+        cd $home
   sudo apt-get update
 sudo apt-get upgrade
 sudo apt-add-repository --remove ppa:ubuntu-toolchain-r/test
@@ -162,7 +173,7 @@ git pull
   cd tg
     autoconf -i 
   ./configure && make
-  cd ..
+      cd $home
  git clone --recursive https://github.com/vysheng/tg.git && cd tg
   sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make 
      PREFIX="$THIS_DIR/.tg"
