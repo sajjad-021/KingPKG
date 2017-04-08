@@ -65,7 +65,11 @@ sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
 wget http://luarocks.org/releases/luarocks-2.4.2.tar.gz
-tar zxpf luarocks-2.2.2.tar.gz$ cd luarocks-2.4.2
+tar zxpf luarocks-2.2.2.tar.gz
+cd luarocks-2.4.2
+  PREFIX="$THIS_DIR/.luarocks"
+  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
+ make build && make install
 ./configure; sudo make bootstrap
  sudo luarocks install luasec
  sudo luarocks install luasocket
@@ -74,8 +78,17 @@ sudo luarocks install redis-lua
 sudo luarocks install serpent
  sudo luarocks install dkjson
 sudo luarocks install Lua-cURL
-cd ..
+  ./.luarocks/bin/luarocks install luasocket  
+  ./.luarocks/bin/luarocks install oauth
+  ./.luarocks/bin/luarocks install redis-lua
+  ./.luarocks/bin/luarocks install lua-cjson
+  ./.luarocks/bin/luarocks install fakeredis
+  ./.luarocks/bin/luarocks install xml
+  ./.luarocks/bin/luarocks install feedparser
+  ./.luarocks/bin/luarocks install serpent
+  cd ..
 rm -rf luarocks-2.4.2.tar.gz
+  rm -rf luarocks-2.4.2
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -88,6 +101,13 @@ sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
 sudo ppa-purge
 sudo service redis-server restart
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
+sudo pip3 install termcolor
+sudo pip3 install psutil
+sudo apt-get install python3.5
+sudo apt-get install python3-pip
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
