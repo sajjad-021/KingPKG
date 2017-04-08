@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 THIS_DIR=$(cd $(dirname $0); pwd)
 cd $THIS_DIR
-
-update() {
-  git pull
   git submodule update --init --recursive
-  install_rocks
-}
+
 conf() {
 read -p "Do you want to install and config? [y/n] = "
 	if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
         install
-        tele
     elif [ "$REPLY" == "n" ] || [ "$REPLY" == "N" ]; then
         exit 1
 	else
@@ -130,9 +125,44 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
-}
-
-tele() {
+cd $home
+git clone https://github.com/keplerproject/luarocks.git
+  cd luarocks
+  git checkout tags/v2.4.2 # Current stable
+  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
+  make build && make install
+  ./bin/luarocks install luasocket  
+  ./bin/luarocks install oauth
+  ./bin/luarocks install redis-lua
+  ./bin/luarocks install lua-cjson
+  ./bin/luarocks install fakeredis
+  ./bin/luarocks install xml
+  ./bin/luarocks install feedparser
+  ./bin/luarocks install serpent
+  cd ..
+  ./.luarocks/bin/luarocks install luasocket  
+  ./.luarocks/bin/luarocks install oauth
+  ./.luarocks/bin/luarocks install redis-lua
+  ./.luarocks/bin/luarocks install lua-cjson
+  ./.luarocks/bin/luarocks install fakeredis
+  ./.luarocks/bin/luarocks install xml
+  ./.luarocks/bin/luarocks install feedparser
+  ./.luarocks/bin/luarocks install serpent
+  sudo apt-get update
+sudo apt-get upgrade
+sudo apt-add-repository --remove ppa:ubuntu-toolchain-r/test
+sudo apt-get install -f
+sudo dpkg -a --configure
+sudo apt-get dist-upgrade
+sudo dpkg --configure -a
+sudo sudo apt-get dist-upgrade
+git pull
+  git submodule update --init --recursive
+  patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
+  cd tg
+    autoconf -i 
+  ./configure && make
+  cd ..
  git clone --recursive https://github.com/vysheng/tg.git && cd tg
   sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make 
      PREFIX="$THIS_DIR/.tg"
@@ -143,92 +173,22 @@ tele() {
     ./configure && make
      env CC=clang CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib LUA=/usr/local/bin/lua52 LUA_INCLUDE=-I/usr/local/include/lua52 LUA_LIB=-llua-5.2 ./configure
      ./.tg/make
-      cd ..
-   git pull
-  git submodule update --init --recursive
-  patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
-  RET=$?;
-  cd tg
-    autoconf -i 
-  ./configure && make
-  cd ..
-  install_luarocks
-  install_rocks
- }
- 
-# Will install luarocks on THIS_DIR/.luarocks
-install_luarocks() {
-  git clone https://github.com/keplerproject/luarocks.git
-  cd luarocks
-  git checkout tags/v2.4.2 # Current stable
-
-  PREFIX="$THIS_DIR/.luarocks"
-
-  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
-
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  make build && make install
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting.";exit $RET;
-  fi
-
-  cd ..
-  rm -rf luarocks
-}
-
-install_rocks() {
-  ./.luarocks/bin/luarocks install luasocket
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install oauth
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install redis-lua
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install lua-cjson
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install fakeredis
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install xml
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install feedparser
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
-
-  ./.luarocks/bin/luarocks install serpent
-  RET=$?; if [ $RET -ne 0 ];
-    then echo "Error. Exiting."; exit $RET;
-  fi
+      cd $home
+      rm -rf luarocks
+      rm -rf KingPKG
+      rm -rf tg
+      echo -e "install and configuration completed!"
+      read -p "Do you want to reboot system? [y/n] = "
+	if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
+        sudo reboot
+    elif [ "$REPLY" == "n" ] || [ "$REPLY" == "N" ]; then
+        exit 1
+   fi
 }
 
 if [ "$1" = "conf" ]; then
   conf
-elif [ "$1" = "update" ]; then
-  update
 fi
 
-rm -rf KingPKG
-cd ..
-rm -rf KingPKG
 
-fi
+
