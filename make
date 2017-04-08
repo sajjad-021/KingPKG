@@ -7,7 +7,19 @@ update() {
   git submodule update --init --recursive
   install_rocks
 }
+conf() {
+read -p "Do you want to install and config? [y/n] = "
+	if [ "$REPLY" == "y" ] || [ "$REPLY" == "Y" ]; then
+        install
+        tele
+    elif [ "$REPLY" == "n" ] || [ "$REPLY" == "N" ]; then
+        exit 1
+	else
+	    conf
+fi
+}
 
+install(){
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -118,7 +130,32 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
+}
 
+tele() {
+ git clone --recursive https://github.com/vysheng/tg.git && cd tg
+  sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev make 
+     PREFIX="$THIS_DIR/.tg"
+  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/tg --force-config
+   brew install libconfig readline lua python libevent jansson
+   export CFLAGS="-I/usr/local/include -I/usr/local/Cellar/readline/6.3.8/include"
+   export LDFLAGS="-L/usr/local/lib -L/usr/local/Cellar/readline/6.3.8/lib"
+    ./configure && make
+     env CC=clang CFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib LUA=/usr/local/bin/lua52 LUA_INCLUDE=-I/usr/local/include/lua52 LUA_LIB=-llua-5.2 ./configure
+     ./.tg/make
+      cd ..
+   git pull
+  git submodule update --init --recursive
+  patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
+  RET=$?;
+  cd tg
+    autoconf -i 
+  ./configure && make
+  cd ..
+  install_luarocks
+  install_rocks
+ }
+ 
 # Will install luarocks on THIS_DIR/.luarocks
 install_luarocks() {
   git clone https://github.com/keplerproject/luarocks.git
@@ -184,37 +221,14 @@ install_rocks() {
   fi
 }
 
-install() {
-  git pull
-  git submodule update --init --recursive
-  patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
-  RET=$?;
-
-  cd tg
-  if [ $RET -ne 0 ]; then
-    autoconf -i
-  fi
-  ./configure && make
-
-  RET=$?; if [ $RET -ne 0 ]; then
-    echo "Error. Exiting."; exit $RET;
-  fi
-  cd ..
-  install_luarocks
-  install_rocks
-}
-
-if [ "$1" = "install" ]; then
-  install
+if [ "$1" = "conf" ]; then
+  conf
 elif [ "$1" = "update" ]; then
   update
-else
-  if [ ! -f ./tg/telegram.h ]; then
-    echo "tg not found"
-    echo "Run $0 install"
-    exit 1
 fi
 
+rm -rf KingPKG
+cd ..
 rm -rf KingPKG
 
 fi
