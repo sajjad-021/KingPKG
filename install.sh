@@ -1,32 +1,13 @@
+#!/usr/bin/env bash
+THIS_DIR=$(cd $(dirname $0); pwd)
+cd $THIS_DIR
 
-  declare -A logo
-    seconds="0.019"
-logo[-1]=" ::::::::::  :::::::      ::     ::  ::::::::  ::     ::  ::::::  :::::::: ::::::  "
-logo[0]="     +:     :+    :+:    :+:+   +::+ +:       :+:+   +:+: +:   :+ +:       +:   :+ "
-logo[1]="     :+     +:           :+ +:+:+ :+ :+       :+ +:+:+ :+ :+   +: :+       :+   +: "
-logo[2]="     ++     :#           ++  +:+  ++ +++++#   ++  +:+  ++ #+++++  +++:+#   +++++#  "
-logo[3]="     ++     +#  +#+#+    #+   +   #+ #+       #+   +   +# #+   +# #+       #+   +# "
-logo[4]="     +#     #+     +#    +#       +# +#       +#       #+ +#    # +#       +#    #+"
-logo[5]="     ##      #######     ##       ## ######## ##       ## ####### ######## ##    ##"
-    printf "\033[32;4;600m\t"
-    for i in ${!logo[@]}; do
-        for x in `seq 0 ${#logo[$i]}`; do
-            printf "${logo[$i]:$x:1}"
-            sleep $seconds
-        done
-        printf "\n\t"
-    done
-printf "\n"
-rm -rf ~/.telegram-cli/tabchi-*/data/photo
-rm -rf ~/.telegram-cli/tabchi-*/data/animation
-rm -rf ~/.telegram-cli/tabchi-*/data/audio
-rm -rf ~/.telegram-cli/tabchi-*/data/document
-rm -rf ~/.telegram-cli/tabchi-*/data/sticker
-rm -rf ~/.telegram-cli/tabchi-*/data/temp
-rm -rf ~/.telegram-cli/tabchi-*/data/video
-rm -rf ~/.telegram-cli/tabchi-*/data/voice
-rm -rf ~/.telegram-cli/tabchi-*/data/profile_photo
-rm -rf ~/.telegram-cli/tabchi-*/data/thumb
+update() {
+  git pull
+  git submodule update --init --recursive
+  install_rocks
+}
+
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -83,8 +64,8 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
-wget http://luarocks.org/releases/luarocks-2.2.2.tar.gz
-tar zxpf luarocks-2.2.2.tar.gz$ cd luarocks-2.2.2
+wget http://luarocks.org/releases/luarocks-2.4.2.tar.gz
+tar zxpf luarocks-2.2.2.tar.gz$ cd luarocks-2.4.2
 ./configure; sudo make bootstrap
  sudo luarocks install luasec
  sudo luarocks install luasocket
@@ -94,7 +75,7 @@ sudo luarocks install serpent
  sudo luarocks install dkjson
 sudo luarocks install Lua-cURL
 cd ..
-rm -rf luarocks-2.2.2.tar.gz
+rm -rf luarocks-2.4.2.tar.gz
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
@@ -117,20 +98,103 @@ sudo dpkg -a --configure
 sudo apt-get dist-upgrade
 sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
-rm -rf KingPKG
-      echo -e "\033[36;7;208m"
-   echo -e " :::::::::::  ::::::::     ::::    ::::  :::::::::: ::::    ::::  :::::::::  :::::::::: ::::::::: "
-   echo -e "     :+:     :+:    :+:    +:+:+: :+:+:+ :+:        +:+:+: :+:+:+ :+:    :+: :+:        :+:    :+:"
-   echo -e "     +:+     +:+           +:+ +:+:+ +:+ +:+        +:+ +:+:+ +:+ +:+    +:+ +:+        +:+    +:+"
-   echo -e "     +#+     :#:           +#+  +:+  +#+ +#++:++#   +#+  +:+  +#+ +#++:++#+  +#++:++#   +#++:++#: "
-   echo -e "     +#+     +#+   +#+#    +#+       +#+ +#+        +#+       +#+ +#+    +#+ +#+        +#+    +#+"
-   echo -e "     #+#     #+#    #+#    #+#       #+# #+#        #+#       #+# #+#    #+# #+#        #+#    #+#"
-   echo -e "     ###      ########     ###       ### ########## ###       ### #########  ########## ###    ###"   
-   echo -e " ------------------------------------------------------------------------------------------------ "
-   echo -e "\033[32M;5;600m"
-   echo -e "               __________ HEY, INSTALLATION COMPELETED SUCCESSFULLY! ____________                 "
-   echo -e "                       -------** YOUR SYSTEM REDBOOT AGAIN **---------                            "
-   
-sudo reboot
 
-exit
+# Will install luarocks on THIS_DIR/.luarocks
+install_luarocks() {
+  git clone https://github.com/keplerproject/luarocks.git
+  cd luarocks
+  git checkout tags/v2.4.2 # Current stable
+
+  PREFIX="$THIS_DIR/.luarocks"
+
+  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/luarocks --force-config
+
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  make build && make install
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting.";exit $RET;
+  fi
+
+  cd ..
+  rm -rf luarocks
+}
+
+install_rocks() {
+  ./.luarocks/bin/luarocks install luasocket
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install oauth
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install redis-lua
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install lua-cjson
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install fakeredis
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install xml
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install feedparser
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+
+  ./.luarocks/bin/luarocks install serpent
+  RET=$?; if [ $RET -ne 0 ];
+    then echo "Error. Exiting."; exit $RET;
+  fi
+}
+
+install() {
+  git pull
+  git submodule update --init --recursive
+  patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
+  RET=$?;
+
+  cd tg
+  if [ $RET -ne 0 ]; then
+    autoconf -i
+  fi
+  ./configure && make
+
+  RET=$?; if [ $RET -ne 0 ]; then
+    echo "Error. Exiting."; exit $RET;
+  fi
+  cd ..
+  install_luarocks
+  install_rocks
+}
+
+if [ "$1" = "install" ]; then
+  install
+elif [ "$1" = "update" ]; then
+  update
+else
+  if [ ! -f ./tg/telegram.h ]; then
+    echo "tg not found"
+    echo "Run $0 install"
+    exit 1
+fi
+
+rm -rf KingPKG
+
+fi
