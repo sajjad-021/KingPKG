@@ -73,7 +73,7 @@ sudo dpkg --configure -a
 sudo sudo apt-get dist-upgrade
 cd $home
 wget http://luarocks.org/releases/luarocks-2.4.2.tar.gz
-tar zxpf luarocks-2.2.2.tar.gz
+tar zxpf luarocks-2.4.2.tar.gz
 rm -rf luarocks-2.4.2.tar.gz
 cd luarocks-2.4.2
   PREFIX="$THIS_DIR/.luarocks"
@@ -96,7 +96,6 @@ sudo luarocks install Lua-cURL
   ./.luarocks/bin/luarocks install feedparser
   ./.luarocks/bin/luarocks install serpent
   cd ..
-  rm -rf luarocks-2.4.2
 sudo apt-get autoclean
 sudo apt-get autoremove
 sudo apt-get update
